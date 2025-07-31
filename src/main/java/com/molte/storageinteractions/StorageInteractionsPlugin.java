@@ -1,8 +1,8 @@
 package com.molte.storageinteractions;
 
 import com.google.inject.Provides;
-import com.molte.storageinteractions.widget.BankHandler;
-import com.molte.storageinteractions.widget.WidgetHandler;
+import com.molte.storageinteractions.widget.BankWidgetHandler;
+import com.molte.storageinteractions.widget.BaseWidgetHandler;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.KeyCode;
@@ -48,13 +48,14 @@ public class StorageInteractionsPlugin extends Plugin
 	@Inject
 	private MenuEntrySwapperConfigLoader _menuSwapperConfig;
 
-	private final ArrayList<WidgetHandler> _widgetHandlers = new ArrayList<>(Arrays.asList(
-		new BankHandler()
+	private final ArrayList<BaseWidgetHandler> _widgetHandlers = new ArrayList<>(Arrays.asList(
+			new BankWidgetHandler()
 	));
 
-	private WidgetHandler _activeWidgetHandler;
+	private BaseWidgetHandler _activeWidgetHandler;
 	private boolean _shiftHeld = false;
 	private String _hoveredMenuItem = null;
+	private boolean _mouseOverDepositInterface = false;
 
 	@Override
 	protected void startUp() throws Exception
@@ -70,6 +71,7 @@ public class StorageInteractionsPlugin extends Plugin
 		_activeWidgetHandler = null;
 		_shiftHeld = false;
 		_hoveredMenuItem = null;
+		_mouseOverDepositInterface = false;
 	}
 
 	@Subscribe
@@ -77,7 +79,7 @@ public class StorageInteractionsPlugin extends Plugin
 	{
 		int interfaceID = widgetLoaded.getGroupId();
 
-		for (WidgetHandler widgetHandler : _widgetHandlers){
+		for (BaseWidgetHandler widgetHandler : _widgetHandlers){
 			if (widgetHandler.getInterfaceID() == interfaceID){
 				_activeWidgetHandler = widgetHandler;
 				break;
@@ -130,22 +132,25 @@ public class StorageInteractionsPlugin extends Plugin
 			return;
 		}
 
+		boolean overlayUpdateRequired = false;
+
 		// Checking if shift state has changed to see if overlay needs updating
 		boolean shiftHeldThisTick = _client.isKeyPressed(KeyCode.KC_SHIFT);
 		if (shiftHeldThisTick != _shiftHeld){
 			_shiftHeld = shiftHeldThisTick;
-			_clientThread.invokeLater(this::updateOverlay);
+			overlayUpdateRequired = true;
 		}
 
-		Point mousePos = _client.getMouseCanvasPosition();
+		// Checking if mouse is over deposit window (useful for matching with menu entry swapper)
+		boolean previousMouseOverDepositInterface = _mouseOverDepositInterface;
+		setMouseOverDepositInterface();
+		if (previousMouseOverDepositInterface != _mouseOverDepositInterface){
+			overlayUpdateRequired = true;
+		}
 
-		Widget inventoryWidget = _client.getWidget(InterfaceID.Toplevel.SIDEMODAL);
-
-		if (inventoryWidget != null && !inventoryWidget.isHidden()) {
-			Rectangle bounds = inventoryWidget.getBounds();
-			if (bounds.contains(mousePos.getX(), mousePos.getY())) {
-				System.out.println("Mouse is over inventory!");
-			}
+		// Update if required
+		if (overlayUpdateRequired){
+			_clientThread.invokeLater(this::updateOverlay);
 		}
 	}
 
@@ -173,7 +178,7 @@ public class StorageInteractionsPlugin extends Plugin
 			return;
 		}
 
-		_overlay.setRenderText(_activeWidgetHandler.getTooltipText(_client, _menuSwapperConfig, _hoveredMenuItem, _shiftHeld));
+		_overlay.setRenderText(_activeWidgetHandler.getTooltipText(_client, _menuSwapperConfig, _hoveredMenuItem, _shiftHeld, _mouseOverDepositInterface));
 	}
 
 	private void setHoveredMenuItem(){
@@ -181,6 +186,23 @@ public class StorageInteractionsPlugin extends Plugin
 		MenuEntry[] menuEntries = _client.getMenu().getMenuEntries();
 		if (menuEntries.length > 0){
 			_hoveredMenuItem = menuEntries[menuEntries.length - 1].getOption();
+		}
+	}
+
+	private void setMouseOverDepositInterface(){
+		if (_activeWidgetHandler == null){
+			return;
+		}
+
+		_mouseOverDepositInterface = false;
+		Point mousePos = _client.getMouseCanvasPosition();
+		Widget inventoryWidget = _client.getWidget(_activeWidgetHandler.getDepositInterfaceID());
+
+		if (inventoryWidget != null && !inventoryWidget.isHidden()) {
+			Rectangle bounds = inventoryWidget.getBounds();
+			if (bounds.contains(mousePos.getX(), mousePos.getY())) {
+				_mouseOverDepositInterface = true;
+			}
 		}
 	}
 

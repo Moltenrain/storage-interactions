@@ -2,27 +2,17 @@ package com.molte.storageinteractions.widget;
 
 import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
-import net.runelite.api.KeyCode;
-import net.runelite.api.ScriptID;
-import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.VarbitID;
 
-import java.util.Random;
+public abstract class BaseWidgetHandler {
 
-public class BankHandler extends WidgetHandler {
+    public abstract int getInterfaceID();
+    public abstract int getDepositInterfaceID();
+    public abstract String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
+    public abstract String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
+    public abstract int[] getScriptIDsThatForceUpdate();
 
-    @Override
-    public int getInterfaceID() {
-        return InterfaceID.BANKMAIN;
-    }
-
-    @Override
-    public int[] getScriptIDsThatForceUpdate() {
-        return new int[] {ScriptID.BANKMAIN_FINISHBUILDING};
-    }
-
-    @Override
-    public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld) {
+    public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld, boolean mouseOverDepositInterface) {
         if (hoverMenuItemText != null  && !hoverMenuItemText.isEmpty()) {
             String hoveredText = formatMenuText(hoverMenuItemText, client);
             if (hoveredText != null){
@@ -31,15 +21,22 @@ public class BankHandler extends WidgetHandler {
         }
 
         if (shiftHeld){
-            return formatMenuText(menuSwapperConfigLoader.getBankShiftWithdrawAmount(), client);
+            return formatMenuText(mouseOverDepositInterface ?
+                        getShiftDepositAmount(menuSwapperConfigLoader) :
+                        getShiftWithdrawAmount(menuSwapperConfigLoader),
+                    client);
         }
 
         return getQuantitySelected(client);
     }
 
+    protected String getFormatMenuRegex(){
+        return "Withdraw-|Deposit-|WITHDRAW_|DEPOSIT_";
+    }
+
     private String formatMenuText(String text, Client client)
     {
-        String formattedString = text.replaceAll("Withdraw-|Deposit-|WITHDRAW_|DEPOSIT_", "");
+        String formattedString = text.replaceAll(getFormatMenuRegex(), "");
 
         System.out.println(formattedString + " | " + text);
 

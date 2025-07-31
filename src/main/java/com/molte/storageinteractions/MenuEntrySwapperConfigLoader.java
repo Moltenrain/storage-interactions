@@ -21,8 +21,14 @@ public class MenuEntrySwapperConfigLoader implements IMenuSwapperConfigLoader
     private ConfigManager _configManager;
 
     @Override
-    public String getBankShiftWithdrawAmount() {
+    public String getBankShiftWithdrawAmount()
+    {
         return getValue(SHIFT_BANK_WITHDRAW_KEY);
+    }
+
+    @Override
+    public String getBankShiftDepositAmount() {
+        return getValue(SHIFT_BANK_DEPOSIT_KEY);
     }
 
     private String getValue(String key){
