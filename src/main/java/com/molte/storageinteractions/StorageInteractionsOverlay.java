@@ -7,6 +7,7 @@ import net.runelite.client.ui.overlay.components.LineComponent;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.util.UUID;
 
 
 public class StorageInteractionsOverlay extends OverlayPanel
@@ -50,5 +51,8 @@ public class StorageInteractionsOverlay extends OverlayPanel
 
     public void setRenderText(String text){
         _renderText = text;
+        if (_renderText != null){
+            _renderText += " | " + UUID.randomUUID().toString();
+        }
     }
 }

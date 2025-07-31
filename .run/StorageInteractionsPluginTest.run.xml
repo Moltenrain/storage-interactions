@@ -2,6 +2,7 @@
   <configuration default="false" name="StorageInteractionsPluginTest" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.molte.storageinteractions.StorageInteractionsPluginTest" />
     <module name="storage-interactions.test" />
+    <option name="PROGRAM_PARAMETERS" value="--developer-mode --debug" />
     <option name="VM_PARAMETERS" value="-ea" />
     <extension name="coverage">
       <pattern>
