@@ -24,20 +24,39 @@ public class BankHandler extends WidgetHandler {
     @Override
     public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld) {
         if (hoverMenuItemText != null  && !hoverMenuItemText.isEmpty()) {
-            return formatHoverMenuItemText(hoverMenuItemText);
+            String hoveredText = formatMenuText(hoverMenuItemText, client);
+            if (hoveredText != null){
+                return hoveredText + " Hovered";
+            }
         }
 
         if (shiftHeld){
-            return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+            return formatMenuText(menuSwapperConfigLoader.getBankShiftWithdrawAmount(), client);
         }
 
         return getQuantitySelected(client);
     }
 
-    private String formatHoverMenuItemText(String text){
-        String quantity = text.replaceFirst("Withdraw-|Deposit-", "");
+    private String formatMenuText(String text, Client client)
+    {
+        String formattedString = text.replaceAll("Withdraw-|Deposit-|WITHDRAW_|DEPOSIT_", "");
 
-        return quantity + " yes";
+        System.out.println(formattedString + " | " + text);
+
+        // If nothing got replaced it safe to assume it's a bad string
+        if (text.equals(formattedString)){
+            return null;
+        }
+
+        switch (formattedString.toLowerCase())
+        {
+            case "x":
+                return getBankXValue(client);
+            case "all":
+                return "All";
+            default:
+                return formattedString;
+        }
     }
 
     private String getQuantitySelected(Client client){
