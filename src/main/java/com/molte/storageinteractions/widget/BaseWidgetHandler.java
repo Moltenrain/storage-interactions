@@ -33,7 +33,7 @@ public abstract class BaseWidgetHandler {
             String menuSwappedValue = mouseOverDepositInterface ?
                     getShiftDepositAmount(menuSwapperConfigLoader) :
                     getShiftWithdrawAmount(menuSwapperConfigLoader);
-            System.out.println(menuSwappedValue + " | " + mouseOverDepositInterface);
+
             if (menuSwappedValue != null && !menuSwappedValue.isEmpty()){
                 menuSwappedValue = formatMenuText(menuSwappedValue, client);
             }
