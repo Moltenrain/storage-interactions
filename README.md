@@ -1,2 +1,2 @@
-# Example
-An example greeter plugin
+# Storage Interactions
+A plugin for stuff and things
