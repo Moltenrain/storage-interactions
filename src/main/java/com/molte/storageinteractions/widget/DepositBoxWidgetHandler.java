@@ -4,18 +4,19 @@ import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
 import net.runelite.api.gameval.InterfaceID;
+import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.gameval.VarbitID;
 
-public class BankWidgetHandler extends BaseWidgetHandler {
+public class DepositBoxWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public int getInterfaceID() {
-        return InterfaceID.BANKMAIN;
+        return InterfaceID.BANK_DEPOSITBOX;
     }
 
     @Override
     public int getDepositInterfaceID() {
-        return InterfaceID.Bankside.UNIVERSE;
+        return InterfaceID.INVOVERLAY_NOOPS;
     }
 
     @Override
@@ -25,12 +26,12 @@ public class BankWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        return menuSwapperConfigLoader.getBankShiftDepositAmount();
     }
 
     @Override
     public int[] getScriptIDsThatForceUpdate() {
-        return new int[] {ScriptID.BANKMAIN_FINISHBUILDING};
+        return new int[] {ScriptID.BANKMAIN_BUILD};
     }
 
     @Override
@@ -42,7 +43,7 @@ public class BankWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public String GetSelectedXValue(Client client) {
-        return String.valueOf(client.getVarbitValue(VarbitID.BANK_REQUESTEDQUANTITY));
+        return String.valueOf(client.getVarpValue(VarPlayerID.DEPOSITBOX_REQUESTEDQUANTITY));
     }
 
     private String formatBankQuantityType(Client client, int bankQuantityType){
@@ -51,11 +52,11 @@ public class BankWidgetHandler extends BaseWidgetHandler {
                 return "1";
             case 1:
                 return "5";
-            case 2:
+            case 4:
                 return "10";
             case 3:
                 return GetSelectedXValue(client);
-            case 4:
+            case 2:
                 return "All";
             default:
                 return null;

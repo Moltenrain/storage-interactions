@@ -2,7 +2,6 @@ package com.molte.storageinteractions.widget;
 
 import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
-import net.runelite.api.gameval.VarbitID;
 
 public abstract class BaseWidgetHandler {
 
@@ -11,23 +10,32 @@ public abstract class BaseWidgetHandler {
     public abstract String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
     public abstract String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
     public abstract int[] getScriptIDsThatForceUpdate();
+    public abstract String GetSelectedQuantity(Client client);
+    public abstract String GetSelectedXValue(Client client);
 
     public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld, boolean mouseOverDepositInterface) {
         if (hoverMenuItemText != null  && !hoverMenuItemText.isEmpty()) {
             String hoveredText = formatMenuText(hoverMenuItemText, client);
             if (hoveredText != null){
-                return hoveredText + " Hovered";
+                return hoveredText;
             }
         }
 
         if (shiftHeld){
-            return formatMenuText(mouseOverDepositInterface ?
-                        getShiftDepositAmount(menuSwapperConfigLoader) :
-                        getShiftWithdrawAmount(menuSwapperConfigLoader),
-                    client);
+            String menuSwappedValue = mouseOverDepositInterface ?
+                    getShiftDepositAmount(menuSwapperConfigLoader) :
+                    getShiftWithdrawAmount(menuSwapperConfigLoader);
+
+            if (menuSwappedValue != null && !menuSwappedValue.isEmpty()){
+                menuSwappedValue = formatMenuText(menuSwappedValue, client);
+            }
+
+            if (menuSwappedValue != null && !menuSwappedValue.isEmpty()){
+                return menuSwappedValue;
+            }
         }
 
-        return getQuantitySelected(client);
+        return GetSelectedQuantity(client);
     }
 
     protected String getFormatMenuRegex(){
@@ -48,35 +56,11 @@ public abstract class BaseWidgetHandler {
         switch (formattedString.toLowerCase())
         {
             case "x":
-                return getBankXValue(client);
+                return GetSelectedXValue(client);
             case "all":
                 return "All";
             default:
                 return formattedString;
         }
-    }
-
-    private String getQuantitySelected(Client client){
-        int quantityType = client.getVarbitValue(VarbitID.BANK_QUANTITY_TYPE);
-
-        switch (quantityType){
-            case 0:
-                return "1";
-            case 1:
-                return "5";
-            case 2:
-                return "10";
-            case 3:
-                return getBankXValue(client);
-            case 4:
-                return "All";
-            default:
-                return null;
-        }
-    }
-
-    private String getBankXValue(Client client){
-        int requestQuantity = client.getVarbitValue(VarbitID.BANK_REQUESTEDQUANTITY);
-        return String.valueOf(requestQuantity);
     }
 }
