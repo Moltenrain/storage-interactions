@@ -13,9 +13,14 @@ import javax.inject.Inject;
 
 public class MenuEntrySwapperConfigLoader implements IMenuSwapperConfigLoader
 {
-    private final String CONFIG_GROUP = "menuentryswapper";
+    public static final String CONFIG_GROUP = "menuentryswapper";
+
     private final String SHIFT_BANK_WITHDRAW_KEY = "bankWithdrawShiftClick";
     private final String SHIFT_BANK_DEPOSIT_KEY = "bankDepositShiftClick";
+    private final String SHIFT_SHOP_BUY_KEY = "shopBuy";
+    private final String SHIFT_SHOP_SELL_KEY = "shopSell";
+
+
 
     @Inject
     private ConfigManager _configManager;
@@ -29,6 +34,18 @@ public class MenuEntrySwapperConfigLoader implements IMenuSwapperConfigLoader
     @Override
     public String getBankShiftDepositAmount() {
         return getValue(SHIFT_BANK_DEPOSIT_KEY);
+    }
+
+    @Override
+    public String getShopBuyAmount()
+    {
+        return getValue(SHIFT_SHOP_BUY_KEY);
+    }
+
+    @Override
+    public String getShopSellAmount()
+    {
+        return getValue(SHIFT_SHOP_SELL_KEY);
     }
 
     private String getValue(String key){

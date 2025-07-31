@@ -2,54 +2,50 @@ package com.molte.storageinteractions.widget;
 
 import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
-import net.runelite.api.ScriptID;
 import net.runelite.api.gameval.InterfaceID;
-import net.runelite.api.gameval.VarPlayerID;
 
 import java.awt.*;
 
-public class SeedVaultWidgetHandler extends BaseWidgetHandler {
+public class ShopWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public int getInterfaceID() {
-        return InterfaceID.SEED_VAULT;
+        return InterfaceID.SHOPMAIN;
     }
 
     @Override
     public int getDepositInterfaceID() {
-        return InterfaceID.SeedVaultDeposit.UNIVERSE;
+        return InterfaceID.Shopside.ITEMS;
     }
 
     @Override
     public Rectangle getDepositInterfaceOffset() {
-        return null;
+        return new Rectangle( -35, -35, 40, 60);
     }
 
     @Override
     public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
-        return menuSwapperConfigLoader.getBankShiftDepositAmount();
+        return menuSwapperConfigLoader.getShopSellAmount();
     }
 
     @Override
     public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        return menuSwapperConfigLoader.getShopBuyAmount();
     }
 
     @Override
     public int[] getScriptIDsThatForceUpdate() {
-        return new int[] { ScriptID.SEED_VAULT_BUILD };
+        return new int[0];
     }
 
     @Override
     public String GetSelectedQuantity(Client client) {
-        int selectedQuantity = client.getVarpValue(VarPlayerID.SEED_VAULT_SELECTED_QTY);
-
-        return selectedQuantity == Integer.MAX_VALUE ? "All" : String.valueOf(selectedQuantity);
+        return null;
     }
 
     @Override
     public String GetSelectedXValue(Client client) {
-        return String.valueOf(client.getVarpValue(VarPlayerID.SEED_VAULT_REQUESTED_QTY));
+        return null;
     }
 
     @Override
@@ -57,4 +53,8 @@ public class SeedVaultWidgetHandler extends BaseWidgetHandler {
         return false;
     }
 
+    @Override
+    protected String getFormatMenuRegex(){
+        return "Buy |Sell |BUY_|SELL_";
+    }
 }

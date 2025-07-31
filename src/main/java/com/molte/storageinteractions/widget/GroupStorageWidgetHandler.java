@@ -6,6 +6,8 @@ import net.runelite.api.ScriptID;
 import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.VarbitID;
 
+import java.awt.*;
+
 public class GroupStorageWidgetHandler extends BaseWidgetHandler {
 
     @Override
@@ -15,7 +17,12 @@ public class GroupStorageWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public int getDepositInterfaceID() {
-        return InterfaceID.SHARED_BANK_SIDE;
+        return InterfaceID.SharedBankSide.ITEMS;
+    }
+
+    @Override
+    public Rectangle getDepositInterfaceOffset() {
+        return null;
     }
 
     @Override

@@ -7,6 +7,8 @@ import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.gameval.VarbitID;
 
+import java.awt.*;
+
 public class DepositBoxWidgetHandler extends BaseWidgetHandler {
 
     @Override
@@ -16,7 +18,12 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public int getDepositInterfaceID() {
-        return InterfaceID.INVOVERLAY_NOOPS;
+        return InterfaceID.InventoryNoops.ITEMS;
+    }
+
+    @Override
+    public Rectangle getDepositInterfaceOffset() {
+        return null;
     }
 
     @Override

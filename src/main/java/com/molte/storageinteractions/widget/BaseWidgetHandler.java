@@ -2,12 +2,14 @@ package com.molte.storageinteractions.widget;
 
 import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
-import net.runelite.api.widgets.Widget;
+
+import java.awt.*;
 
 public abstract class BaseWidgetHandler {
 
     public abstract int getInterfaceID();
     public abstract int getDepositInterfaceID();
+    public abstract Rectangle getDepositInterfaceOffset();
     public abstract String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
     public abstract String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
     public abstract int[] getScriptIDsThatForceUpdate();
@@ -31,7 +33,7 @@ public abstract class BaseWidgetHandler {
             String menuSwappedValue = mouseOverDepositInterface ?
                     getShiftDepositAmount(menuSwapperConfigLoader) :
                     getShiftWithdrawAmount(menuSwapperConfigLoader);
-
+            System.out.println(menuSwappedValue + " | " + mouseOverDepositInterface);
             if (menuSwappedValue != null && !menuSwappedValue.isEmpty()){
                 menuSwappedValue = formatMenuText(menuSwappedValue, client);
             }
@@ -50,10 +52,11 @@ public abstract class BaseWidgetHandler {
 
     private String formatMenuText(String text, Client client)
     {
-        String formattedString = text.replaceAll(getFormatMenuRegex(), "");
+        String sanitisedString = sanitiseMenuString(text);
+        String formattedString = sanitisedString.replaceAll(getFormatMenuRegex(), "");
 
         // If nothing got replaced it safe to assume it's a bad string
-        if (text.equals(formattedString)){
+        if (sanitisedString.equals(formattedString)){
             return null;
         }
 
@@ -66,5 +69,9 @@ public abstract class BaseWidgetHandler {
             default:
                 return formattedString;
         }
+    }
+
+    private String sanitiseMenuString(String menuString){
+        return menuString.replaceAll("<col=[^>]+>", "");
     }
 }

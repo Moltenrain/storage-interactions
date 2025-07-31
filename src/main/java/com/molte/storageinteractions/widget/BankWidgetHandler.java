@@ -7,7 +7,7 @@ import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.VarbitID;
 import net.runelite.api.widgets.Widget;
 
-import java.util.Arrays;
+import java.awt.*;
 
 public class BankWidgetHandler extends BaseWidgetHandler {
 
@@ -20,6 +20,12 @@ public class BankWidgetHandler extends BaseWidgetHandler {
     public int getDepositInterfaceID() {
         return InterfaceID.Bankside.UNIVERSE;
     }
+
+    @Override
+    public Rectangle getDepositInterfaceOffset() {
+        return null;
+    }
+
 
     @Override
     public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {

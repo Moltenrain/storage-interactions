@@ -52,7 +52,8 @@ public class StorageInteractionsPlugin extends Plugin
 			new BankWidgetHandler(),
 			new SeedVaultWidgetHandler(),
 			new DepositBoxWidgetHandler(),
-			new GroupStorageWidgetHandler()
+			new GroupStorageWidgetHandler(),
+			new ShopWidgetHandler()
 	));
 
 	private BaseWidgetHandler _activeWidgetHandler;
@@ -211,6 +212,15 @@ public class StorageInteractionsPlugin extends Plugin
 
 		if (inventoryWidget != null && !inventoryWidget.isHidden()) {
 			Rectangle bounds = inventoryWidget.getBounds();
+
+			if (_activeWidgetHandler.getDepositInterfaceOffset() != null){
+				bounds = new Rectangle(
+						(int)(bounds.getX() + _activeWidgetHandler.getDepositInterfaceOffset().getX()),
+						(int)(bounds.getY() + _activeWidgetHandler.getDepositInterfaceOffset().getY()),
+						(int)(bounds.getWidth() + _activeWidgetHandler.getDepositInterfaceOffset().getWidth()),
+						(int)(bounds.getHeight() + _activeWidgetHandler.getDepositInterfaceOffset().getHeight()));
+			}
+
 			if (bounds.contains(mousePos.getX(), mousePos.getY())) {
 				_mouseOverDepositInterface = true;
 			}
