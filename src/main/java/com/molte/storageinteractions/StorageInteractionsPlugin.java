@@ -1,6 +1,7 @@
 package com.molte.storageinteractions;
 
 import com.google.inject.Provides;
+import com.molte.storageinteractions.settings.StorageInteractionsConfig;
 import com.molte.storageinteractions.widget.*;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -8,11 +9,11 @@ import net.runelite.api.KeyCode;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
 import net.runelite.api.events.*;
-import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -172,6 +173,14 @@ public class StorageInteractionsPlugin extends Plugin
 				_clientThread.invokeLater(this::updateOverlay);
 			}
 		});
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals(StorageInteractionsConfig.CONFIG_GROUP)){
+			_overlay.updateConfig();
+		}
 	}
 
 	private void updateOverlay(){
