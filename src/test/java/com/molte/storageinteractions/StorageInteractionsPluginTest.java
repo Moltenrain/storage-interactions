@@ -1,13 +1,13 @@
-package com.molte.bankinteractions;
+package com.molte.storageinteractions;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class BankInteractionsPluginTest
+public class StorageInteractionsPluginTest
 {
 	public static void main(String[] args) throws Exception
 	{
-		ExternalPluginManager.loadBuiltin(BankInteractionsPlugin.class);
+		ExternalPluginManager.loadBuiltin(StorageInteractionsPlugin.class);
 		RuneLite.main(args);
 	}
 }

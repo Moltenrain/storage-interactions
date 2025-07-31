@@ -1,4 +1,4 @@
-package com.molte.bankinteractions;
+package com.molte.storageinteractions;
 
 import net.runelite.api.Client;
 import net.runelite.api.Point;
@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import java.awt.*;
 
 
-public class BankInteractionsOverlay extends OverlayPanel
+public class StorageInteractionsOverlay extends OverlayPanel
 {
     private static final Point TOOLTIP_OFFSET = new Point(-40,  5);
     private static final Font FONT = new Font("Arial", Font.PLAIN, 9);
@@ -19,7 +19,7 @@ public class BankInteractionsOverlay extends OverlayPanel
 
 
     @Inject
-    BankInteractionsOverlay(Client client){
+    StorageInteractionsOverlay(Client client){
         _client = client;
 
         setPriority(OverlayPriority.HIGHEST);

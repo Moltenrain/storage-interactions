@@ -1,11 +1,11 @@
-package com.molte.bankinteractions;
+package com.molte.storageinteractions;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("example")
-public interface BankInteractionsConfig extends Config
+@ConfigGroup("storageinteractions")
+public interface StorageInteractionsConfig extends Config
 {
 	@ConfigItem(
 		keyName = "greeting",
