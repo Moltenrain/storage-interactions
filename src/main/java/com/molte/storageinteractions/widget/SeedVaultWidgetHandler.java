@@ -20,12 +20,12 @@ public class SeedVaultWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
-        return null;
+        return menuSwapperConfigLoader.getBankShiftDepositAmount();
     }
 
     @Override
     public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
-        return null;
+        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
     }
 
     @Override

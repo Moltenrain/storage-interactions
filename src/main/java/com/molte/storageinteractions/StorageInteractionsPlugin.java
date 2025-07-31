@@ -1,9 +1,7 @@
 package com.molte.storageinteractions;
 
 import com.google.inject.Provides;
-import com.molte.storageinteractions.widget.BankWidgetHandler;
-import com.molte.storageinteractions.widget.BaseWidgetHandler;
-import com.molte.storageinteractions.widget.SeedVaultWidgetHandler;
+import com.molte.storageinteractions.widget.*;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.KeyCode;
@@ -49,9 +47,11 @@ public class StorageInteractionsPlugin extends Plugin
 	@Inject
 	private MenuEntrySwapperConfigLoader _menuSwapperConfig;
 
-	private final ArrayList<BaseWidgetHandler> _widgetHandlers = new ArrayList<>(Arrays.asList(
+	private final ArrayList<BaseWidgetHandler> _widgetHandlers = new ArrayList<BaseWidgetHandler>(Arrays.asList(
 			new BankWidgetHandler(),
-			new SeedVaultWidgetHandler()
+			new SeedVaultWidgetHandler(),
+			new DepositBoxWidgetHandler(),
+			new GroupStorageWidgetHandler()
 	));
 
 	private BaseWidgetHandler _activeWidgetHandler;

@@ -4,24 +4,23 @@ import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
 import net.runelite.api.gameval.InterfaceID;
-import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.gameval.VarbitID;
 
-public class DepositBoxWidgetHandler extends BaseWidgetHandler {
+public class GroupStorageWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public int getInterfaceID() {
-        return InterfaceID.BANK_DEPOSITBOX;
+        return InterfaceID.SHARED_BANK;
     }
 
     @Override
     public int getDepositInterfaceID() {
-        return InterfaceID.INVOVERLAY_NOOPS;
+        return InterfaceID.SHARED_BANK_SIDE;
     }
 
     @Override
     public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        return menuSwapperConfigLoader.getBankShiftDepositAmount();
     }
 
     @Override
@@ -31,19 +30,19 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public int[] getScriptIDsThatForceUpdate() {
-        return new int[] {ScriptID.BANKMAIN_BUILD};
+        return new int[] {ScriptID.BANKMAIN_FINISHBUILDING, ScriptID.GROUP_IRONMAN_STORAGE_BUILD};
     }
 
     @Override
     public String GetSelectedQuantity(Client client) {
-        int bankQuantityType = client.getVarbitValue(VarbitID.DEPOSITBOX_MODE);
+        int bankQuantityType = client.getVarbitValue(VarbitID.BANK_QUANTITY_TYPE);
 
         return formatBankQuantityType(client, bankQuantityType);
     }
 
     @Override
     public String GetSelectedXValue(Client client) {
-        return String.valueOf(client.getVarpValue(VarPlayerID.DEPOSITBOX_REQUESTEDQUANTITY));
+        return String.valueOf(client.getVarbitValue(VarbitID.BANK_REQUESTEDQUANTITY));
     }
 
     private String formatBankQuantityType(Client client, int bankQuantityType){
@@ -52,11 +51,11 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
                 return "1";
             case 1:
                 return "5";
-            case 4:
+            case 2:
                 return "10";
             case 3:
                 return GetSelectedXValue(client);
-            case 2:
+            case 4:
                 return "All";
             default:
                 return null;

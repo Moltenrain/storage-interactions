@@ -46,8 +46,6 @@ public abstract class BaseWidgetHandler {
     {
         String formattedString = text.replaceAll(getFormatMenuRegex(), "");
 
-        System.out.println(formattedString + " | " + text);
-
         // If nothing got replaced it safe to assume it's a bad string
         if (text.equals(formattedString)){
             return null;
