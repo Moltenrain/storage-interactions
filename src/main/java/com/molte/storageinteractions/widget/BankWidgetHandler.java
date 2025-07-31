@@ -5,6 +5,9 @@ import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
 import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.VarbitID;
+import net.runelite.api.widgets.Widget;
+
+import java.util.Arrays;
 
 public class BankWidgetHandler extends BaseWidgetHandler {
 
@@ -43,6 +46,15 @@ public class BankWidgetHandler extends BaseWidgetHandler {
     @Override
     public String GetSelectedXValue(Client client) {
         return String.valueOf(client.getVarbitValue(VarbitID.BANK_REQUESTEDQUANTITY));
+    }
+
+    @Override
+    public boolean ForceReturnNoTooltip(Client client) {
+        Widget wornItems = client.getWidget(InterfaceID.Bankmain.WORNITEMS_CONTAINER);
+        Widget menu = client.getWidget(InterfaceID.Bankmain.MENU_CONTAINER);
+
+        // Disable interface if worn items or the menu is shown
+        return (wornItems != null && !wornItems.isHidden()) || (menu != null && !menu.isHidden());
     }
 
     private String formatBankQuantityType(Client client, int bankQuantityType){

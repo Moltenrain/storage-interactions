@@ -2,6 +2,7 @@ package com.molte.storageinteractions.widget;
 
 import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
+import net.runelite.api.widgets.Widget;
 
 public abstract class BaseWidgetHandler {
 
@@ -12,8 +13,13 @@ public abstract class BaseWidgetHandler {
     public abstract int[] getScriptIDsThatForceUpdate();
     public abstract String GetSelectedQuantity(Client client);
     public abstract String GetSelectedXValue(Client client);
+    public abstract boolean ForceReturnNoTooltip(Client client);
 
     public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld, boolean mouseOverDepositInterface) {
+        if (ForceReturnNoTooltip(client)){
+            return null;
+        }
+
         if (hoverMenuItemText != null  && !hoverMenuItemText.isEmpty()) {
             String hoveredText = formatMenuText(hoverMenuItemText, client);
             if (hoveredText != null){

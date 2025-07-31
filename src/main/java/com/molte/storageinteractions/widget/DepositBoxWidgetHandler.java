@@ -46,6 +46,11 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
         return String.valueOf(client.getVarpValue(VarPlayerID.DEPOSITBOX_REQUESTEDQUANTITY));
     }
 
+    @Override
+    public boolean ForceReturnNoTooltip(Client client) {
+        return false;
+    }
+
     private String formatBankQuantityType(Client client, int bankQuantityType){
         switch (bankQuantityType){
             case 0:

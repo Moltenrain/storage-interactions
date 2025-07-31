@@ -45,4 +45,9 @@ public class SeedVaultWidgetHandler extends BaseWidgetHandler {
         return String.valueOf(client.getVarpValue(VarPlayerID.SEED_VAULT_REQUESTED_QTY));
     }
 
+    @Override
+    public boolean ForceReturnNoTooltip(Client client) {
+        return false;
+    }
+
 }

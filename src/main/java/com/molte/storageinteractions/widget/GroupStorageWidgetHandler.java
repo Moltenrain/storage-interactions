@@ -45,6 +45,11 @@ public class GroupStorageWidgetHandler extends BaseWidgetHandler {
         return String.valueOf(client.getVarbitValue(VarbitID.BANK_REQUESTEDQUANTITY));
     }
 
+    @Override
+    public boolean ForceReturnNoTooltip(Client client) {
+        return false;
+    }
+
     private String formatBankQuantityType(Client client, int bankQuantityType){
         switch (bankQuantityType){
             case 0:
