@@ -54,7 +54,9 @@ public class StorageInteractionsPlugin extends Plugin
 			new DepositBoxWidgetHandler(),
 			new GroupStorageWidgetHandler(),
 			new ShopWidgetHandler(),
-			new GnomeStorageWidgetHandler()
+			new GnomeStorageWidgetHandler(),
+			new TackleBoxWidgetHandler(),
+			new HuntsmansKitWidetHandler()
 	));
 
 	private BaseWidgetHandler _activeWidgetHandler;

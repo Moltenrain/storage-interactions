@@ -49,7 +49,7 @@ public class HuntsmansKitWidetHandler extends BaseWidgetHandler {
 
     @Override
     public String GetSelectedXValue(Client client) {
-        return null;
+        return "X";
     }
 
     private String formatBankQuantityType(Client client, int bankQuantityType){
