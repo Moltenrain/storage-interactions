@@ -57,4 +57,9 @@ public class SeedVaultWidgetHandler extends BaseWidgetHandler {
         return false;
     }
 
+    @Override
+    public boolean IsNotedModeActive(Client client) {
+        return false;
+    }
+
 }

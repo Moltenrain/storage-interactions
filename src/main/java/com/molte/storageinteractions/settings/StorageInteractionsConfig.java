@@ -10,11 +10,11 @@ public interface StorageInteractionsConfig extends Config
 	public static final String CONFIG_GROUP = "storageinteractions";
 
 	@ConfigItem(
-			keyName = "fontSize",
-			name = "Font Size",
-			description = "Size of the font in the overlay"
+			keyName = "overlaySize",
+			name = "Size",
+			description = "Size of the font/bank note in overlay"
 	)
-	default FontSize fontSize() { return FontSize.MEDIUM; }
+	default OverlaySize overlaySize() { return OverlaySize.MEDIUM; }
 
 	@ConfigItem(
 			keyName = "fontColour",

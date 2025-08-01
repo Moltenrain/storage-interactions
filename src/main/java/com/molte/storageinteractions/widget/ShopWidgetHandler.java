@@ -54,6 +54,11 @@ public class ShopWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
+    public boolean IsNotedModeActive(Client client) {
+        return false;
+    }
+
+    @Override
     protected String getFormatMenuRegex(){
         return "Buy |Sell |BUY_|SELL_";
     }

@@ -3,7 +3,6 @@ package com.molte.storageinteractions.widget;
 import com.molte.storageinteractions.IMenuSwapperConfigLoader;
 import net.runelite.api.Client;
 import net.runelite.api.gameval.InterfaceID;
-import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.gameval.VarbitID;
 
 import java.awt.*;
@@ -69,6 +68,11 @@ public class GnomeStorageWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public boolean ForceReturnNoTooltip(Client client) {
+        return false;
+    }
+
+    @Override
+    public boolean IsNotedModeActive(Client client) {
         return false;
     }
 

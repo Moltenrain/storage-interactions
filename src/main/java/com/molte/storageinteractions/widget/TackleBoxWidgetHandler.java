@@ -70,4 +70,9 @@ public class TackleBoxWidgetHandler extends BaseWidgetHandler {
     public boolean ForceReturnNoTooltip(Client client) {
         return false;
     }
+
+    @Override
+    public boolean IsNotedModeActive(Client client) {
+        return false;
+    }
 }

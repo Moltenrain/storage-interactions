@@ -29,6 +29,14 @@ dependencies {
 group = 'com.example'
 version = '1.0-SNAPSHOT'
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'

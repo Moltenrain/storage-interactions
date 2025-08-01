@@ -16,6 +16,7 @@ public abstract class BaseWidgetHandler {
     public abstract String GetSelectedQuantity(Client client);
     public abstract String GetSelectedXValue(Client client);
     public abstract boolean ForceReturnNoTooltip(Client client);
+    public abstract boolean IsNotedModeActive(Client client);
 
     public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld, boolean mouseOverDepositInterface) {
         if (ForceReturnNoTooltip(client)){

@@ -57,6 +57,11 @@ public class GroupStorageWidgetHandler extends BaseWidgetHandler {
         return false;
     }
 
+    @Override
+    public boolean IsNotedModeActive(Client client) {
+        return client.getVarbitValue(VarbitID.BANK_WITHDRAWNOTES) == 1;
+    }
+
     private String formatBankQuantityType(Client client, int bankQuantityType){
         switch (bankQuantityType){
             case 0:

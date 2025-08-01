@@ -20,8 +20,6 @@ public class MenuEntrySwapperConfigLoader implements IMenuSwapperConfigLoader
     private final String SHIFT_SHOP_BUY_KEY = "shopBuy";
     private final String SHIFT_SHOP_SELL_KEY = "shopSell";
 
-
-
     @Inject
     private ConfigManager _configManager;
 

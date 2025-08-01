@@ -18,8 +18,11 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -68,6 +71,14 @@ public class StorageInteractionsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		_overlayManager.add(_overlay);
+
+		try (InputStream in = getClass().getResourceAsStream("/images/banknote.png")) {
+			if (in != null){
+				_overlay.setBankNoteImage(ImageIO.read(in));
+			}
+		}
+
+		_overlay.updateConfig();
 	}
 
 	@Override
@@ -190,9 +201,10 @@ public class StorageInteractionsPlugin extends Plugin
 	private void updateOverlay(){
 		if (_activeWidgetHandler == null){
 			_overlay.setRenderText(null);
+			_overlay.setShowBankNoteImage(false);
 			return;
 		}
-
+		_overlay.setShowBankNoteImage(_activeWidgetHandler.IsNotedModeActive(_client));
 		_overlay.setRenderText(_activeWidgetHandler.getTooltipText(_client, _menuSwapperConfig, _hoveredMenuItem, _shiftHeld, _mouseOverDepositInterface));
 	}
 

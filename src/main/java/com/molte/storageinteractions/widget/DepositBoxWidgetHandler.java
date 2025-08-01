@@ -58,6 +58,11 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
         return false;
     }
 
+    @Override
+    public boolean IsNotedModeActive(Client client) {
+        return false;
+    }
+
     private String formatBankQuantityType(Client client, int bankQuantityType){
         switch (bankQuantityType){
             case 0:
