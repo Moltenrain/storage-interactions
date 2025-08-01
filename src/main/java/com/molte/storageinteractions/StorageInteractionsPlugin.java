@@ -53,7 +53,8 @@ public class StorageInteractionsPlugin extends Plugin
 			new SeedVaultWidgetHandler(),
 			new DepositBoxWidgetHandler(),
 			new GroupStorageWidgetHandler(),
-			new ShopWidgetHandler()
+			new ShopWidgetHandler(),
+			new GnomeStorageWidgetHandler()
 	));
 
 	private BaseWidgetHandler _activeWidgetHandler;
