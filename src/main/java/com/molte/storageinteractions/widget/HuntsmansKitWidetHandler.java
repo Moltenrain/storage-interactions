@@ -8,21 +8,21 @@ import net.runelite.api.gameval.VarbitID;
 
 import java.awt.*;
 
-public class GnomeStorageWidgetHandler extends BaseWidgetHandler {
+public class HuntsmansKitWidetHandler extends BaseWidgetHandler {
 
     @Override
     public int getInterfaceID() {
-        return InterfaceID.FARMING_TOOLS;
+        return InterfaceID.HUNTSMANS_KIT;
     }
 
     @Override
     public int getDepositInterfaceID() {
-        return InterfaceID.FarmingToolsSide.UNIVERSE;
+        return InterfaceID.HuntsmansKitSide.ITEMS;
     }
 
     @Override
     public Rectangle getDepositInterfaceOffset() {
-        return null;
+        return new Rectangle( -35, -35, 40, 60);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class GnomeStorageWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public String GetSelectedQuantity(Client client) {
-        int bankQuantityType = client.getVarbitValue(VarbitID.FARMING_TOOLS_SELECTEDQUANTITY);
+        int bankQuantityType = client.getVarbitValue(VarbitID.II_ELNOCK_STORAGE_SELECTEDQUANTITY);
 
         return formatBankQuantityType(client, bankQuantityType);
     }
@@ -70,10 +70,5 @@ public class GnomeStorageWidgetHandler extends BaseWidgetHandler {
     @Override
     public boolean ForceReturnNoTooltip(Client client) {
         return false;
-    }
-
-    @Override
-    protected String getFormatMenuRegex(){
-        return "Remove-|Store-";
     }
 }
