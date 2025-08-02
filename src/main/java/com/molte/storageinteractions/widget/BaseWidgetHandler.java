@@ -10,8 +10,8 @@ public abstract class BaseWidgetHandler {
     public abstract int getInterfaceID();
     public abstract int getDepositInterfaceID();
     public abstract Rectangle getDepositInterfaceOffset();
-    public abstract String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
-    public abstract String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader);
+    public abstract String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity);
+    public abstract String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity);
     public abstract int[] getScriptIDsThatForceUpdate();
     public abstract String GetSelectedQuantity(Client client);
     public abstract String GetSelectedXValue(Client client);
@@ -23,6 +23,8 @@ public abstract class BaseWidgetHandler {
             return null;
         }
 
+        String selectedQuantity = GetSelectedQuantity(client);
+
         if (hoverMenuItemText != null  && !hoverMenuItemText.isEmpty()) {
             String hoveredText = formatMenuText(hoverMenuItemText, client);
             if (hoveredText != null){
@@ -32,8 +34,8 @@ public abstract class BaseWidgetHandler {
 
         if (shiftHeld){
             String menuSwappedValue = mouseOverDepositInterface ?
-                    getShiftDepositAmount(menuSwapperConfigLoader) :
-                    getShiftWithdrawAmount(menuSwapperConfigLoader);
+                    getShiftDepositAmount(menuSwapperConfigLoader, selectedQuantity) :
+                    getShiftWithdrawAmount(menuSwapperConfigLoader, selectedQuantity);
 
             if (menuSwappedValue != null && !menuSwappedValue.isEmpty()){
                 menuSwappedValue = formatMenuText(menuSwappedValue, client);
@@ -44,7 +46,7 @@ public abstract class BaseWidgetHandler {
             }
         }
 
-        return GetSelectedQuantity(client);
+        return selectedQuantity;
     }
 
     protected String getFormatMenuRegex(){

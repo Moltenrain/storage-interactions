@@ -40,32 +40,32 @@ public class StorageInteractionsOverlay extends Overlay
     @Override
     public Dimension render(Graphics2D graphics2D) {
         final Point mousePosition = _client.getMouseCanvasPosition();
+        final int overlayX = mousePosition.getX() + _config.overlayOffsetX();
+        final int overlayY = mousePosition.getY() + _config.overlayOffsetY();
 
-        if (_showBankNote){
+        if (_showBankNote) {
             graphics2D.drawImage(
                     _bankNoteImage,
-                    mousePosition.getX() + _config.overlaySize().getBankNoteXOffset(),
-                    mousePosition.getY() + _config.overlaySize().getBankNoteYOffset(),
+                    overlayX + _config.overlaySize().getBankNoteXOffset(),
+                    overlayY + _config.overlaySize().getBankNoteYOffset(),
                     null);
         }
 
-        if (_renderText == null){
-            return null;
+        if (_renderText != null) {
+            AffineTransform transform = graphics2D.getTransform();
+            transform.translate(
+                    overlayX + _config.overlaySize().getFontXOffset(),
+                    overlayY + _config.overlaySize().getFontYOffset());
+            graphics2D.transform(transform);
+            graphics2D.setColor(_config.fontOutLineColor());
+            FontRenderContext frc = graphics2D.getFontRenderContext();
+            TextLayout tl = new TextLayout(_renderText, FONT, frc);
+            Shape shape = tl.getOutline(null);
+            graphics2D.setStroke(new BasicStroke(_config.overlaySize().getFontOutlineThickness()));
+            graphics2D.draw(shape);
+            graphics2D.setColor(_config.fontColor());
+            graphics2D.fill(shape);
         }
-
-        AffineTransform transform = graphics2D.getTransform();
-        transform.translate(
-                mousePosition.getX() + _config.overlaySize().getFontXOffset(),
-                mousePosition.getY() + _config.overlaySize().getFontYOffset());
-        graphics2D.transform(transform);
-        graphics2D.setColor(_config.fontOutLineColor().getColour());
-        FontRenderContext frc = graphics2D.getFontRenderContext();
-        TextLayout tl = new TextLayout(_renderText, FONT, frc);
-        Shape shape = tl.getOutline(null);
-        graphics2D.setStroke(new BasicStroke(_config.overlaySize().getFontOutlineThickness()));
-        graphics2D.draw(shape);
-        graphics2D.setColor(_config.fontColor().getColour());
-        graphics2D.fill(shape);
 
         return null;
     }

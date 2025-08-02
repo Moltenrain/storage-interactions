@@ -4,7 +4,7 @@ public enum OverlaySize {
     SMALL (10, 3, 10, 16, 7, 3, 20, 20),
     MEDIUM (12, 4, 11, 20, 7, 4, 23, 23),
     LARGE (14, 5, 12, 20, 7, 1, 26, 26),
-    EXTRA_LARGE (18, 7, 12, 17, 6, -7, 35, 35);
+    X_LARGE(18, 7, 12, 17, 6, -7, 35, 35);
 
     private final int _fontSize;
     private final float _fontOutlineThickness;

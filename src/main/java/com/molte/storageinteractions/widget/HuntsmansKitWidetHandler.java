@@ -25,12 +25,12 @@ public class HuntsmansKitWidetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
+    public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity) {
         return "";
     }
 
     @Override
-    public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader) {
+    public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity) {
         return "";
     }
 
