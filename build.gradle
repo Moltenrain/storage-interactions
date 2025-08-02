@@ -26,8 +26,8 @@ dependencies {
     testImplementation group: 'net.runelite', name: 'jshell', version: runeLiteVersion
 }
 
-group = 'com.example'
-version = '1.0-SNAPSHOT'
+group = 'com.molte'
+version = '1.1'
 
 sourceSets {
     main {
@@ -57,6 +57,7 @@ tasks.register('shadowJar', Jar) {
             file.isDirectory() ? file : zipTree(file)
         }
     }
+    from sourceSets.main.resources
 
     exclude 'META-INF/INDEX.LIST'
     exclude 'META-INF/*.SF'

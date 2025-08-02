@@ -43,7 +43,7 @@ public class StorageInteractionsOverlay extends Overlay
         final int overlayX = mousePosition.getX() + _config.overlayOffsetX();
         final int overlayY = mousePosition.getY() + _config.overlayOffsetY();
 
-        if (_showBankNote) {
+        if (_showBankNote && _bankNoteImage != null) {
             graphics2D.drawImage(
                     _bankNoteImage,
                     overlayX + _config.overlaySize().getBankNoteXOffset(),
@@ -78,6 +78,10 @@ public class StorageInteractionsOverlay extends Overlay
     {
         if (bankNoteImage != null){
             _baseBankNoteImage = bankNoteImage;
+        }
+
+        if (_baseBankNoteImage == null){
+            return;
         }
 
         double scaleX = (double) _config.overlaySize().getBankNoteWidth() / _baseBankNoteImage.getWidth();
