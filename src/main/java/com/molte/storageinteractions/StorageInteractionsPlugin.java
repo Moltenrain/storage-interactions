@@ -91,6 +91,8 @@ public class StorageInteractionsPlugin extends Plugin
 	{
 		_overlayManager.remove(_overlay);
 		_overlay.setRenderText(null);
+		_overlay.setPlaceholderImage(null);
+		_overlay.setPlaceholderImage(null);
 		_activeWidgetHandler = null;
 		_shiftHeld = false;
 		_hoveredMenuItem = null;
