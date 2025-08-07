@@ -28,12 +28,16 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        return "";
     }
 
     @Override
     public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        if (selectedQuantity.equals("1")){
+            return ""; // Same as seed vault - doesn't work when 1 is selected
+        }
+
+        return menuSwapperConfigLoader.getBankShiftDepositAmount();
     }
 
     @Override
