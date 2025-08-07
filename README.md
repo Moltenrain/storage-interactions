@@ -14,8 +14,8 @@ Shows an overlay with the selected quantity/note for that interface.
 - Tackle box
 
 ## Additional Features
--Shows when note mode is active! <br/>
+- Shows when note mode is active! <br/>
 ![](https://github.com/user-attachments/assets/0d25d89e-5a9b-4cb1-be0e-e83cabfa0937)
 
--And when placeholder mode is off! <br/>
+- And when placeholder mode is off! <br/>
 ![](https://github.com/user-attachments/assets/d9bcefcf-0f19-4826-a65a-e41c678493e7)
