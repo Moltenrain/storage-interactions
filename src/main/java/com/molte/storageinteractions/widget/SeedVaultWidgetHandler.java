@@ -46,24 +46,29 @@ public class SeedVaultWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public String GetSelectedQuantity(Client client) {
+    public String getSelectedQuantity(Client client) {
         int selectedQuantity = client.getVarpValue(VarPlayerID.SEED_VAULT_SELECTED_QTY);
 
         return selectedQuantity == Integer.MAX_VALUE ? "All" : String.valueOf(selectedQuantity);
     }
 
     @Override
-    public String GetSelectedXValue(Client client) {
+    public String getSelectedXValue(Client client) {
         return String.valueOf(client.getVarpValue(VarPlayerID.SEED_VAULT_REQUESTED_QTY));
     }
 
     @Override
-    public boolean ForceReturnNoTooltip(Client client) {
+    public boolean forceReturnNoTooltip(Client client) {
         return false;
     }
 
     @Override
-    public boolean IsNotedModeActive(Client client) {
+    public boolean isNotedModeActive(Client client) {
+        return false;
+    }
+
+    @Override
+    public boolean showPlaceholderDisableOverlay(Client client) {
         return false;
     }
 

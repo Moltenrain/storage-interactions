@@ -40,14 +40,14 @@ public class GnomeStorageWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public String GetSelectedQuantity(Client client) {
+    public String getSelectedQuantity(Client client) {
         int bankQuantityType = client.getVarbitValue(VarbitID.FARMING_TOOLS_SELECTEDQUANTITY);
 
         return formatBankQuantityType(client, bankQuantityType);
     }
 
     @Override
-    public String GetSelectedXValue(Client client) {
+    public String getSelectedXValue(Client client) {
         return "X";
     }
 
@@ -67,12 +67,17 @@ public class GnomeStorageWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public boolean ForceReturnNoTooltip(Client client) {
+    public boolean forceReturnNoTooltip(Client client) {
         return false;
     }
 
     @Override
-    public boolean IsNotedModeActive(Client client) {
+    public boolean isNotedModeActive(Client client) {
+        return false;
+    }
+
+    @Override
+    public boolean showPlaceholderDisableOverlay(Client client) {
         return false;
     }
 
