@@ -43,19 +43,19 @@ public class BankWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public String GetSelectedQuantity(Client client) {
+    public String getSelectedQuantity(Client client) {
         int bankQuantityType = client.getVarbitValue(VarbitID.BANK_QUANTITY_TYPE);
 
         return formatBankQuantityType(client, bankQuantityType);
     }
 
     @Override
-    public String GetSelectedXValue(Client client) {
+    public String getSelectedXValue(Client client) {
         return String.valueOf(client.getVarbitValue(VarbitID.BANK_REQUESTEDQUANTITY));
     }
 
     @Override
-    public boolean ForceReturnNoTooltip(Client client) {
+    public boolean forceReturnNoTooltip(Client client) {
         Widget wornItems = client.getWidget(InterfaceID.Bankmain.WORNITEMS_CONTAINER);
         Widget menu = client.getWidget(InterfaceID.Bankmain.MENU_CONTAINER);
 
@@ -64,9 +64,12 @@ public class BankWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public boolean IsNotedModeActive(Client client) {
+    public boolean isNotedModeActive(Client client) {
         return client.getVarbitValue(VarbitID.BANK_WITHDRAWNOTES) == 1;
     }
+
+    @Override
+    public boolean showPlaceholderDisableOverlay(Client client)  { return client.getVarbitValue(VarbitID.BANK_LEAVEPLACEHOLDERS) == 0;}
 
     private String formatBankQuantityType(Client client, int bankQuantityType){
         switch (bankQuantityType){
@@ -77,7 +80,7 @@ public class BankWidgetHandler extends BaseWidgetHandler {
             case 2:
                 return "10";
             case 3:
-                return GetSelectedXValue(client);
+                return getSelectedXValue(client);
             case 4:
                 return "All";
             default:

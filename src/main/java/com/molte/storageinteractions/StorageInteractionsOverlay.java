@@ -21,9 +21,14 @@ public class StorageInteractionsOverlay extends Overlay
 
     private final Client _client;
     private String _renderText = null;
+
     private BufferedImage _bankNoteImage;
     private BufferedImage _baseBankNoteImage;
     private boolean _showBankNote = false;
+
+    private BufferedImage _placeholderImage;
+    private BufferedImage _basePlaceholderImage;
+    private boolean _showPlaceholder = false;
 
     @Inject
     private StorageInteractionsConfig _config;
@@ -48,6 +53,14 @@ public class StorageInteractionsOverlay extends Overlay
                     _bankNoteImage,
                     overlayX + _config.overlaySize().getBankNoteXOffset(),
                     overlayY + _config.overlaySize().getBankNoteYOffset(),
+                    null);
+        }
+
+        if (_config.showPlaceholder() && _showPlaceholder && _placeholderImage != null) {
+            graphics2D.drawImage(
+                    _placeholderImage,
+                    overlayX + _config.overlaySize().getPlaceholderXOffset(),
+                    overlayY + _config.overlaySize().getPlaceholderYOffset(),
                     null);
         }
 
@@ -83,21 +96,42 @@ public class StorageInteractionsOverlay extends Overlay
         if (_baseBankNoteImage == null){
             return;
         }
+        _bankNoteImage = scaleImage(_baseBankNoteImage, _config.overlaySize().getBankNoteWidth(), _config.overlaySize().getBankNoteHeight());
+    }
 
-        double scaleX = (double) _config.overlaySize().getBankNoteWidth() / _baseBankNoteImage.getWidth();
-        double scaleY = (double) _config.overlaySize().getBankNoteHeight() / _baseBankNoteImage.getHeight();
+    public void setPlaceholderImage(BufferedImage placeholderImage){
+        if (placeholderImage != null){
+            _basePlaceholderImage = placeholderImage;
+        }
 
-        AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
-        BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-
-        _bankNoteImage = op.filter(_baseBankNoteImage, null);
+        if (_basePlaceholderImage == null){
+            return;
+        }
+        _placeholderImage = scaleImage(_basePlaceholderImage, _config.overlaySize().getPlaceholderWidth(), _config.overlaySize().getPlaceholderHeight());
     }
 
     public void setShowBankNoteImage(boolean state)
-    { _showBankNote = state; }
+    {
+        _showBankNote = state;
+    }
+
+    public void setShowPlaceholderImage(boolean state){
+        _showPlaceholder = state;
+    }
 
     public void updateConfig(){
         FONT = new Font("Arial", Font.BOLD, _config.overlaySize().getFontSize());
         setBankNoteImage(null);
+        setPlaceholderImage(null);
+    }
+
+    private BufferedImage scaleImage(BufferedImage bufferedImage, int newWidth, int newHeight){
+        double scaleX = (double) newWidth / bufferedImage.getWidth();
+        double scaleY = (double) newHeight / bufferedImage.getHeight();
+
+        AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
+        BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        return op.filter(bufferedImage, null);
     }
 }

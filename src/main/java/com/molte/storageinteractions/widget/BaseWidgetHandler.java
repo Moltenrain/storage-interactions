@@ -13,17 +13,18 @@ public abstract class BaseWidgetHandler {
     public abstract String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity);
     public abstract String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity);
     public abstract int[] getScriptIDsThatForceUpdate();
-    public abstract String GetSelectedQuantity(Client client);
-    public abstract String GetSelectedXValue(Client client);
-    public abstract boolean ForceReturnNoTooltip(Client client);
-    public abstract boolean IsNotedModeActive(Client client);
+    public abstract String getSelectedQuantity(Client client);
+    public abstract String getSelectedXValue(Client client);
+    public abstract boolean forceReturnNoTooltip(Client client);
+    public abstract boolean isNotedModeActive(Client client);
+    public abstract boolean showPlaceholderDisableOverlay(Client client);
 
     public String getTooltipText(Client client, IMenuSwapperConfigLoader menuSwapperConfigLoader, String hoverMenuItemText, boolean shiftHeld, boolean mouseOverDepositInterface) {
-        if (ForceReturnNoTooltip(client)){
+        if (forceReturnNoTooltip(client)){
             return null;
         }
 
-        String selectedQuantity = GetSelectedQuantity(client);
+        String selectedQuantity = getSelectedQuantity(client);
 
         if (hoverMenuItemText != null  && !hoverMenuItemText.isEmpty()) {
             String hoveredText = formatMenuText(hoverMenuItemText, client);
@@ -66,7 +67,7 @@ public abstract class BaseWidgetHandler {
         switch (formattedString.toLowerCase())
         {
             case "x":
-                return GetSelectedXValue(client);
+                return getSelectedXValue(client);
             case "all":
                 return "All";
             default:

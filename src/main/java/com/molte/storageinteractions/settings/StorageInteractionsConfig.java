@@ -55,7 +55,7 @@ public interface StorageInteractionsConfig extends Config
 			position = 3,
 			section = overlaySection
 	)
-	default int overlayOffsetX() { return -0; }
+	default int overlayOffsetX() { return 0; }
 
 	@Range(
 			min = -50000,
@@ -68,5 +68,14 @@ public interface StorageInteractionsConfig extends Config
 			position = 4,
 			section = overlaySection
 	)
-	default int overlayOffsetY() { return -0; }
+	default int overlayOffsetY() { return 0; }
+
+	@ConfigItem(
+			keyName = "showPlaceholder",
+			name = "Placeholder warning",
+			description = "Show overlay warning when placeholder mode is off",
+			position = 5,
+			section = overlaySection
+	)
+	default boolean showPlaceholder() { return true; }
 }

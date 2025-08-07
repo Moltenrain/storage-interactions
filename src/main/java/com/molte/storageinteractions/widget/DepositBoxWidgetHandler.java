@@ -28,12 +28,16 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
 
     @Override
     public String getShiftDepositAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        return "";
     }
 
     @Override
     public String getShiftWithdrawAmount(IMenuSwapperConfigLoader menuSwapperConfigLoader, String selectedQuantity) {
-        return menuSwapperConfigLoader.getBankShiftWithdrawAmount();
+        if (selectedQuantity.equals("1")){
+            return ""; // Same as seed vault - doesn't work when 1 is selected
+        }
+
+        return menuSwapperConfigLoader.getBankShiftDepositAmount();
     }
 
     @Override
@@ -42,24 +46,29 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
     }
 
     @Override
-    public String GetSelectedQuantity(Client client) {
+    public String getSelectedQuantity(Client client) {
         int bankQuantityType = client.getVarbitValue(VarbitID.DEPOSITBOX_MODE);
 
         return formatBankQuantityType(client, bankQuantityType);
     }
 
     @Override
-    public String GetSelectedXValue(Client client) {
+    public String getSelectedXValue(Client client) {
         return String.valueOf(client.getVarpValue(VarPlayerID.DEPOSITBOX_REQUESTEDQUANTITY));
     }
 
     @Override
-    public boolean ForceReturnNoTooltip(Client client) {
+    public boolean forceReturnNoTooltip(Client client) {
         return false;
     }
 
     @Override
-    public boolean IsNotedModeActive(Client client) {
+    public boolean isNotedModeActive(Client client) {
+        return false;
+    }
+
+    @Override
+    public boolean showPlaceholderDisableOverlay(Client client) {
         return false;
     }
 
@@ -72,7 +81,7 @@ public class DepositBoxWidgetHandler extends BaseWidgetHandler {
             case 4:
                 return "10";
             case 3:
-                return GetSelectedXValue(client);
+                return getSelectedXValue(client);
             case 2:
                 return "All";
             default:
